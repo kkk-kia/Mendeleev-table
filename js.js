@@ -22,14 +22,16 @@ async function makeElementsDiv(data) {
         var Element = document.createElement("a")
         Element.innerHTML = data[i].number + "<br>" + data[i].symbol
         Element.title = data[i].name
-        Element.href = data[i].source
-        // const imgUrl = await imageApiFunc(Element.title)
-        // Element.setAttribute("imageApi", imgUrl)
-        Element.target = "_blank"
         Element.className = ("Element")
+        Element.href = data[i].source
+        Element.target = "_blank"
+        Element.setAttribute("xpos", data[i].xpos)
+        Element.setAttribute("ypos", data[i].ypos)
+        Element.setAttribute("summary", data[i].summary)
+
         Element.addEventListener("mouseover", mouseOver)
         Element.addEventListener("mouseout", mouseOut)
-        Element.addEventListener("click", click)
+        Element.addEventListener("mousedown", mousedown)
         table.appendChild(Element)
     }
     var AllElement = document.querySelectorAll(".Element")
@@ -39,39 +41,51 @@ async function makeElementsDiv(data) {
 
     var tooltip = document.createElement("div")
     var image = document.createElement("img")
+    var info = document.createElement("p")
     tooltip.classList.add("tooltip")
 
     async function mouseOver(e) {
-        e.target.classList.add("bg")
+        tooltip.style.top = `-${e.target.getAttribute("ypos") * 35}`
+        if (e.target.getAttribute("xpos") > 12) {
+            tooltip.style.left = "-300px"
+        } else {
+            tooltip.style.left = "50px"
+        }
+
+        e.target.classList.add("animationMouseOver")
         e.target.appendChild(tooltip)
         var fetchImage = await fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&formatversion=2&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=600&titles=${e.target.title}`)
         var fetchImageJson = await fetchImage.json()
         // console.log(await fetchImageJson);
         image.src = `${await fetchImageJson.query.pages[0].thumbnail.source}`
         if (image.src) { tooltip.appendChild(image) }
-
+        info.innerHTML = e.target.getAttribute("summary")
+        // console.log(e.target.getAttribute("summary"));
+        tooltip.appendChild(info)
     }
     function mouseOut(e) {
-        e.target.classList.remove("bg")
+        e.target.classList.remove("animationMouseOver")
         if (e.target.contains(tooltip)) { e.target.removeChild(tooltip) }
         if (tooltip.contains(image)) { tooltip.removeChild(image) }
         image.src = ""
     }
-    function click(e) {
-
+    function mousedown(e) {
+        e.target.classList.add("animationmousedown")
     }
     var c = 3
     for (i = 56; i <= 69; i++) {
-        AllElement[i].style.background = ("blue")
+        AllElement[i].style.background = ("#8458B3")
         AllElement[i].style.gridRowStart = ("8")
         AllElement[i].style.gridColumnStart = (c)
+        AllElement[i].style.marginTop = "30px"
         c++
     }
     c = 3
     for (i = 88; i <= 101; i++) {
-        AllElement[i].style.background = ("green")
+        AllElement[i].style.background = ("#d0bdf4")
         AllElement[i].style.gridRowStart = ("9")
         AllElement[i].style.gridColumnStart = (c)
+        AllElement[i].style.marginTop = "30px"
         c++
     }
     // AllElement[56].style.gridColumnStart = ("2")

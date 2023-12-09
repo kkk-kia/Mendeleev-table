@@ -3,55 +3,71 @@
   margin: 0;
   box-sizing: border-box;
 }
-body{
-    background-color: black;
+body {
+  background-color: #c89666;
 }
 #table {
   display: grid;
   grid-template-columns: repeat(18, 50px);
   grid-template-rows: repeat(9, 50px);
   justify-content: center;
+  justify-items: center;
+  align-items: center;
   padding-top: 50px;
   gap: 2px;
 }
-.Element{
-    /* z-index: -1; */
-    position: relative;
-    background-color: red;
-    width: 50px ;
-    height: 50px ;
-    border: 1px solid black;
-    color: black;
-    text-decoration: none;
-
-}
-
-/* #table div{
-    background-color: red;
-    width: 10px;
-    height: 10px;
-} */
-
-/* .two{
-    grid-column-start:3 ;
-    grid-column-end: ;
-} */
-
-.bg {
-  background: black !important;
-}
-.tooltip{
-    background-color: white;
-    width: 200px;
-    height: 100px;
-    position: absolute;
-    bottom: -110px;
-    z-index: 20;
-}
-.tooltip img{
+.Element {
+  /* z-index: -1; */
   position: relative;
-  width: 100px;
-  height: 100px;
-  
+  /* background-color: #a0d2eb; */
+  background-color: #2d545e;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #12343b;
+  /* border: 1px solid #aaaaaa; */
+  color: black;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: serif;
+  font-size: 16px;
+}
 
+.animationMouseOver {
+  /* background: black !important; */
+  width: 45px;
+  height: 45px;
+  font-size: 13px;
+  border-radius: 7px;
+  transition: 0.1s linear;
+}
+.tooltip {
+  background-color: #c89666;
+  border: 1px solid black;
+  width: 300px;
+  /* height: 350px; */
+  position: absolute;
+  left: 50px;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.tooltip img {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+.tooltip p {
+  padding: 3px;
+  font-size: 15px;
+  font-family: serif;
+}
+
+
+.animationmousedown{
+  background-color: #c89666 !important;
+  border: none ;
 }
